@@ -1,1 +1,348 @@
 
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Donat Free Fire</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f9fafb;
+    padding: 20px;
+    color: #222;
+  }
+  h1, h2 {
+    margin-bottom: 10px;
+  }
+  label {
+    margin-top: 15px;
+    font-weight: bold;
+    display: block;
+  }
+  select, input[type=text], input[type=tel], button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  button {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  button:hover {
+    background-color: #1e4ec8;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  th, td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: center;
+  }
+  .social {
+    margin-top: 25px;
+    display: flex;
+    gap: 10px;
+  }
+  .social a {
+    flex: 1;
+    text-decoration: none;
+    color: white;
+    padding: 12px 0;
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
+  }
+  .tiktok { background: #000; }
+  .instagram { background: #E1306C; }
+  .telegram { background: #0088cc; }
+  /* Modal */
+  #orderModal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+  }
+  #orderModalContent {
+    background: white;
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 25px;
+    border-radius: 10px;
+    position: relative;
+  }
+  #orderModalContent span.closeBtn {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    cursor: pointer;
+    font-size: 25px;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<h1>Бегалиев Рамазон</h1>
+<p>🎉 Закажи <strong>1000+ алмазов</strong> и получи <strong>50 в подарок!</strong> Только сегодня!</p>
+
+<label for="currency">Выберите валюту:</label>
+<select id="currency" onchange="updatePrices()">
+  <option value="TJS">Сомони (TJS)</option>
+  <option value="RUB">Рубли (RUB)</option>
+  <option value="USD">Доллары (USD)</option>
+</select>
+
+<label for="language">Выберите язык:</label>
+<select id="language" onchange="updateLanguage()">
+  <option value="RU">Русский</option>
+  <option value="EN">English</option>
+  <option value="TJ">Тоҷикӣ</option>
+</select>
+
+<h2 id="titleCheap">🎮 GARENA FREE FIRE – Дешёвый донат 🔥</h2>
+<table>
+  <thead>
+    <tr>
+      <th id="thDiamonds">Алмазы</th>
+      <th id="thPrice">Цена</th>
+      <th id="thBuy">Купить</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>100</td>
+      <td data-baseprice="12">12 TJS</td>
+      <td><button onclick="openOrderModal(100,12)">Купить</button></td>
+    </tr>
+    <tr>
+      <td>210</td>
+      <td data-baseprice="22">22 TJS</td>
+      <td><button onclick="openOrderModal(210,22)">Купить</button></td>
+    </tr>
+    <tr>
+      <td>530</td>
+      <td data-baseprice="50">50 TJS</td>
+      <td><button onclick="openOrderModal(530,50)">Купить</button></td>
+    </tr>
+    <tr>
+      <td>1080</td>
+      <td data-baseprice="98">98 TJS</td>
+      <td><button onclick="openOrderModal(1080,98)">Купить</button></td>
+    </tr>
+    <tr>
+      <td>2200</td>
+      <td data-baseprice="190">190 TJS</td>
+      <td><button onclick="openOrderModal(2200,190)">Купить</button></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="titleVoucher">💳 Донат через ваучеры</h2>
+<table>
+  <thead>
+    <tr>
+      <th id="thPeriod">Период</th>
+      <th id="thVouchersDiamonds">Алмазы</th>
+      <th id="thVouchersPrice">Цена</th>
+      <th id="thVouchersBuy">Купить</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1 недели</td>
+      <td>90</td>
+      <td data-baseprice="10">10 TJS</td>
+      <td><button onclick="openOrderModal('Ваучер 2 недели – 90 алмазов',10)">Купить</button></td>
+    </tr>
+    <tr>
+      <td>1 неделя</td>
+      <td>450</td>
+      <td data-baseprice="25">25 TJS</td>
+      <td><button onclick="openOrderModal('Ваучер 1 неделя – 450 алмазов',25)">Купить</button></td>
+    </tr>
+    <tr>
+      <td>1 месяц</td>
+      <td>2600</td>
+      <td data-baseprice="105">105 TJS</td>
+      <td><button onclick="openOrderModal('Ваучер 1 месяц – 2600 алмазов',105)">Купить</button></td>
+    </tr>
+  </tbody>
+</table>
+
+<p id="subscribeText">Подпишись на наши соцсети и получи <strong>5 алмазов</strong> в подарок!</p>
+<div class="social">
+  <a href="https://tiktok.com/@begaliev_ramazon" target="_blank" rel="noopener noreferrer" class="tiktok" style="background:#000; color:#fff; border-radius:5px; padding:12px; flex:1; text-align:center; margin-right:10px;">TikTok</a>
+  <a href="https://instagram.com/begaliev_ramazon" target="_blank" rel="noopener noreferrer" class="instagram" style="background:#E1306C; color:#fff; border-radius:5px; padding:12px; flex:1; text-align:center; margin-right:10px;">Instagram</a>
+  <a href="https://t.me/begaliev_ramazon" target="_blank" rel="noopener noreferrer" class="telegram" style="background:#0088cc; color:#fff; border-radius:5px; padding:12px; flex:1; text-align:center;">Telegram</a>
+</div>
+
+<!-- Modal -->
+<div id="orderModal">
+  <div id="orderModalContent">
+    <span class="closeBtn" onclick="closeOrderModal()">×</span>
+    <h2 id="orderTitle">Заказ алмазов</h2>
+    <label id="labelPlayerId" for="playerId">ID игрока:</label>
+    <input type="text" id="playerId" placeholder="Введите ID" />
+    <label id="labelPlayerPhone" for="playerPhone">Номер телефона:</label>
+    <input type="tel" id="playerPhone" placeholder="+992 123 456 789" />
+    <button onclick="sendOrder()">📨 Отправить</button>
+  </div>
+</div>
+
+<script>
+  const rates = {
+    TJS: 1,
+    RUB: 8.5,
+    USD: 0.09
+  };
+
+  const translations = {
+    RU: {
+      titleCheap: "🎮 GARENA FREE FIRE – Дешёвый донат 🔥",
+      titleVoucher: "💳 Донат через ваучеры",
+      subscribeText: "Подпишись на наши соцсети и получи <strong>5 алмазов</strong> в подарок!",
+      labels: {
+        diamonds: "Алмазы",
+        price: "Цена",
+        buy: "Купить",
+        period: "Период",
+        playerId: "ID игрока:",
+        playerPhone: "Номер телефона:",
+        currency: "Выберите валюту:",
+        language: "Выберите язык:"
+      },
+      alertFill: "Пожалуйста, заполните все поля!"
+    },
+    EN: {
+      titleCheap: "🎮 GARENA FREE FIRE – Cheap Donat 🔥",
+      titleVoucher: "💳 Donat by vouchers",
+      subscribeText: "Subscribe to our socials and get <strong>5 diamonds</strong> as a gift!",
+      labels: {
+        diamonds: "Diamonds",
+        price: "Price",
+        buy: "Buy",
+        period: "Period",
+        playerId: "Player ID:",
+        playerPhone: "Phone Number:",
+        currency: "Select Currency:",
+        language: "Select Language:"
+      },
+      alertFill: "Please fill all fields!"
+    },
+    TJ: {
+      titleCheap: "🎮 GARENA FREE FIRE – Арзон донат 🔥",
+      titleVoucher: "💳 Донат тавассути ваучерҳо",
+      subscribeText: "Ба саҳифаҳои мо обуна шавед ва <strong>5 алмос</strong> тӯҳфа гиред!",
+      labels: {
+        diamonds: "Алмосҳо",
+        price: "Нархи",
+        buy: "Харидан",
+        period: "Муҳлат",
+        playerId: "ID бозингар:",
+        playerPhone: "Рақами телефон:",
+        currency: "Валютаро интихоб кунед:",
+        language: "Забонро интихоб кунед:"
+      },
+      alertFill: "Лутфан ҳамаи майдонҳоро пур кунед!"
+    }
+  };
+
+  let currentCurrency = "TJS";
+  let currentLanguage = "RU";
+  let currentOrderText = "";
+  let currentOrderPrice = 0;
+
+  function updatePrices() {
+    currentCurrency = document.getElementById("currency").value;
+    document.querySelectorAll("td[data-baseprice]").forEach(td => {
+      const basePrice = parseFloat(td.getAttribute("data-baseprice"));
+      let newPrice = basePrice * rates[currentCurrency];
+      if (currentCurrency === "RUB") newPrice = Math.round(newPrice);
+      else newPrice = newPrice.toFixed(2);
+      td.textContent = `${newPrice} ${currentCurrency}`;
+      td.setAttribute("data-currentprice", newPrice);
+    });
+  }
+
+  function updateLanguage() {
+    currentLanguage = document.getElementById("language").value;
+    const t = translations[currentLanguage];
+    document.getElementById("titleCheap").textContent = t.titleCheap;
+    document.getElementById("titleVoucher").textContent = t.titleVoucher;
+    document.getElementById("subscribeText").innerHTML = t.subscribeText;
+    document.getElementById("thDiamonds").textContent = t.labels.diamonds;
+    document.getElementById("thPrice").textContent = t.labels.price;
+    document.getElementById("thBuy").textContent = t.labels.buy;
+    document.getElementById("thPeriod").textContent = t.labels.period;
+    document.getElementById("thVouchersDiamonds").textContent = t.labels.diamonds;
+    document.getElementById("thVouchersPrice").textContent = t.labels.price;
+    document.getElementById("thVouchersBuy").textContent = t.labels.buy;
+    document.querySelector("label[for='currency']").textContent = t.labels.currency;
+    document.querySelector("label[for='language']").textContent = t.labels.language;
+    document.getElementById("labelPlayerId").textContent = t.labels.playerId;
+    document.getElementById("labelPlayerPhone").textContent = t.labels.playerPhone;
+  }
+
+  function openOrderModal(almazCount, basePrice) {
+    const modal = document.getElementById("orderModal");
+    modal.style.display = "block";
+
+    currentOrderText = typeof almazCount === "number" ? `${almazCount} алмазов` : almazCount;
+    currentOrderPrice = basePrice * rates[currentCurrency];
+    if(currentCurrency === "RUB") currentOrderPrice = Math.round(currentOrderPrice);
+    else currentOrderPrice = currentOrderPrice.toFixed(2);
+
+    document.getElementById("orderTitle").textContent = `${currentOrderText} — ${currentOrderPrice} ${currentCurrency}`;
+    document.getElementById("playerId").value = "";
+    document.getElementById("playerPhone").value = "";
+  }
+
+  function closeOrderModal() {
+    document.getElementById("orderModal").style.display = "none";
+  }
+
+  function sendOrder() {
+    const playerId = document.getElementById("playerId").value.trim();
+    const playerPhone = document.getElementById("playerPhone").value.trim();
+
+    if(!playerId || !playerPhone){
+      alert(translations[currentLanguage].alertFill);
+      return;
+    }
+
+    const message = `💎 ЗАКАЗ\n\n🆔 ID: ${playerId}\n📞 Телефон: ${playerPhone}\n📦 Заказ: ${currentOrderText} — ${currentOrderPrice} ${currentCurrency}`;
+
+    // Telegramda tayyor xabar uchun link
+    const telegramUrl = `https://t.me/Begaliev_Ramazon?text=${encodeURIComponent(message)}`;
+    window.open(telegramUrl, "_blank");
+    closeOrderModal();
+  }
+
+  // Modal oynadan tashqariga bosilganda yopish
+  window.onclick = function(event){
+    const modal = document.getElementById("orderModal");
+    if(event.target === modal){
+      closeOrderModal();
+    }
+  };
+
+  // Dastlabki holat
+  updatePrices();
+  updateLanguage();
+</script>
+
+</body>
+</html>
